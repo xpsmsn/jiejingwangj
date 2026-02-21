@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>洁净旺家 - 移动端优先设计预览</title>
+    <meta name="theme-color" content="#FFFBF5">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream-50: #FFFBF5;
+            --cream-100: #FFF8ED;
+            --cream-200: #FDF3E3;
+            --cream-300: #F5E6D3;
+            --brown-900: #3D2C1E;
+            --brown-800: #5C4033;
+            --brown-700: #7A5A3D;
+            --brown-600: #99754D;
+            --brown-500: #B8905D;
+            --sage-500: #8B9A7D;
+            --sage-600: #6B7A5D;
+            --terracotta-400: #C4846C;
+            --terracotta-500: #B56E52;
+            --text-primary: #2D2A26;
+            --text-secondary: #5C5852;
+            --text-muted: #8A8680;
+            --bg-warm: #FFFBF5;
+            --bg-cream: #FFF8ED;
+            --bg-card: #FFFFFF;
+            --border-light: rgba(61, 44, 30, 0.08);
+            --border-medium: rgba(61, 44, 30, 0.15);
+            --shadow-soft: 0 2px 12px rgba(61, 44, 30, 0.06);
+            --shadow-medium: 0 4px 20px rgba(61, 44, 30, 0.1);
+            --shadow-lift: 0 12px 40px rgba(61, 44, 30, 0.12);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --transition-smooth: all 0.3s ease;
+            --safe-area-bottom: env(safe-area-inset-bottom, 0);
+            --safe-area-top: env(safe-area-inset-top, 0);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-warm);
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Noto Serif SC", serif;
+            font-weight: 600;
+            line-height: 1.35;
+            color: var(--text-primary);
+            letter-spacing: 0.02em;
+        }
+
+        h1 { font-size: 1.875rem; }
+        h2 { font-size: 1.625rem; }
+        h3 { font-size: 1.375rem; }
+        h4 { font-size: 1.125rem; }
+
+        p {
+            margin-bottom: 1em;
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+        }
+
+        a {
+            color: var(--brown-700);
+            text-decoration: none;
+        }
+
+        .container {
+            width: 100%;
+            padding: 0 16px;
+            margin: 0 auto;
+        }
+
+        /* 顶部品牌栏 */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            background: rgba(255, 251, 245, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .site-logo {
+            font-family: "Noto Serif SC", serif;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--brown-800);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .site-logo::before {
+            content: '';
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--terracotta-400) 0%, var(--brown-600) 100%);
+            border-radius: 8px;
+        }
+
+        .top-bar-contact {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: linear-gradient(135deg, var(--terracotta-400) 0%, var(--terracotta-500) 100%);
+            border-radius: 100px;
+            color: white;
+            font-size: 0.8125rem;
+            font-weight: 500;
+        }
+
+        /* 底部导航 */
+        .main-navigation {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 251, 245, 0.98);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border-light);
+            padding-bottom: var(--safe-area-bottom);
+            box-shadow: 0 -4px 20px rgba(61, 44, 30, 0.08);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 8px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 16px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        .nav-item-icon {
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .nav-item.active {
+            color: var(--terracotta-500);
+        }
+
+        /* 英雄区域 */
+        .hero-section {
+            min-height: 100vh;
+            padding: 80px 0 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(180deg, var(--cream-100) 0%, var(--bg-warm) 100%);
+        }
+
+        .hero-content {
+            text-align: center;
+            padding: 0 8px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: rgba(181, 110, 82, 0.1);
+            border-radius: 100px;
+            font-size: 0.8125rem;
+            color: var(--terracotta-500);
+            margin-bottom: 20px;
+        }
+
+        .hero-badge::before {
+            content: '✦';
+            font-size: 0.625rem;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+            line-height: 1.25;
+            margin-bottom: 16px;
+            color: var(--brown-900);
+        }
+
+        .hero-title span {
+            display: block;
+            color: var(--terracotta-500);
+            font-style: italic;
+            font-size: 1.5rem;
+            margin-top: 4px;
+        }
+
+        .hero-description {
+            font-size: 0.9375rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px 24px;
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--brown-700) 0%, var(--brown-800) 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(93, 64, 51, 0.25);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--brown-700);
+            border: 1.5px solid var(--border-medium);
+        }
+
+        .hero-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 40px;
+            padding: 0 4px;
+        }
+
+        .hero-feature {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 16px 12px;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .hero-feature-icon {
+            font-size: 1.75rem;
+            margin-bottom: 8px;
+        }
+
+        .hero-feature h4 {
+            font-size: 0.875rem;
+            margin-bottom: 4px;
+            color: var(--brown-800);
+        }
+
+        .hero-feature p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* 服务区域 */
+        .section {
+            padding: 48px 0;
+        }
+
+        .section-cream {
+            background-color: var(--bg-cream);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--terracotta-500);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            margin-bottom: 12px;
+            color: var(--brown-900);
+        }
+
+        .section-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            max-width: 280px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-light);
+        }
+
+        .service-icon {
+            flex-shrink: 0;
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, var(--cream-200) 0%, var(--cream-300) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .service-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .service-title {
+            font-size: 1.0625rem;
+            margin-bottom: 6px;
+            color: var(--brown-800);
+        }
+
+        .service-desc {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .service-tag {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 4px 10px;
+            background: var(--cream-100);
+            border-radius: 100px;
+            font-size: 0.6875rem;
+            color: var(--brown-600);
+        }
+
+        /* 关于区域 */
+        .about-section {
+            text-align: center;
+        }
+
+        .about-image {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 24px;
+            background: linear-gradient(145deg, var(--sage-500) 0%, var(--sage-600) 100%);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            font-size: 3rem;
+            box-shadow: var(--shadow-lift);
+        }
+
+        .about-image span {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .about-text {
+            font-size: 0.9375rem;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .about-quote {
+            position: relative;
+            padding: 20px;
+            background: var(--cream-100);
+            border-radius: var(--radius-md);
+            margin: 24px 0;
+            font-family: "Noto Serif SC", serif;
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--brown-700);
+            line-height: 1.7;
+        }
+
+        .about-quote::before {
+            content: '"';
+            position: absolute;
+            top: 8px;
+            left: 12px;
+            font-size: 2.5rem;
+            color: var(--terracotta-400);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .founder-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            margin-top: 24px;
+            text-align: left;
+        }
+
+        .founder-avatar {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--brown-500) 0%, var(--brown-600) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            font-family: "Noto Serif SC", serif;
+        }
+
+        .founder-info h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+            color: var(--brown-800);
+        }
+
+        .founder-info p {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* 数据统计 */
+        .stats-section {
+            background: linear-gradient(135deg, var(--brown-800) 0%, var(--brown-900) 100%);
+            padding: 40px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: "Noto Serif SC", serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .stat-number span {
+            font-size: 0.5em;
+            color: var(--terracotta-400);
+        }
+
+        .stat-label {
+            font-size: 0.8125rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* 特色优势 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-light);
+        }
+
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+            margin: 0 auto 12px;
+            background: linear-gradient(135deg, var(--cream-200) 0%, var(--cream-300) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .feature-title {
+            font-size: 0.9375rem;
+            margin-bottom: 6px;
+            color: var(--brown-800);
+        }
+
+        .feature-desc {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* 客户评价 */
+        .testimonials-slider {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding: 4px;
+            margin: 0 -16px;
+            padding: 0 16px;
+        }
+
+        .testimonials-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .testimonial-card {
+            flex: 0 0 calc(100% - 32px);
+            scroll-snap-align: center;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-light);
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 2px;
+            margin-bottom: 12px;
+            font-size: 0.875rem;
+            color: var(--terracotta-400);
+        }
+
+        .testimonial-text {
+            font-family: "Noto Serif SC", serif;
+            font-size: 0.9375rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .testimonial-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--sage-500) 0%, var(--sage-600) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: "Noto Serif SC", serif;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .testimonial-info h5 {
+            font-size: 0.875rem;
+            margin-bottom: 2px;
+            color: var(--brown-800);
+        }
+
+        .testimonial-info span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* 联系区域 */
+        .contact-section {
+            padding-bottom: 100px;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, var(--brown-700) 0%, var(--brown-800) 100%);
+            border-radius: var(--radius-xl);
+            padding: 28px 24px;
+            color: white;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .contact-card h3 {
+            color: white;
+            font-size: 1.25rem;
+            margin-bottom: 24px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-item-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
+        }
+
+        .contact-item-content {
+            text-align: left;
+        }
+
+        .contact-item-content h5 {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 2px;
+            font-weight: 400;
+        }
+
+        .contact-item-content p {
+            font-size: 0.9375rem;
+            color: white;
+            margin: 0;
+            font-family: "Noto Serif SC", serif;
+        }
+
+        .contact-item-content a {
+            color: white;
+        }
+
+        .quick-contact {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .btn-accent {
+            background: linear-gradient(135deg, var(--terracotta-400) 0%, var(--terracotta-500) 100%);
+            color: white;
+        }
+
+        .btn-phone {
+            background: linear-gradient(135deg, var(--sage-500) 0%, var(--sage-600) 100%);
+            color: white;
+        }
+
+        /* 页脚 */
+        .site-footer {
+            background: var(--brown-900);
+            color: rgba(255, 255, 255, 0.85);
+            padding: 40px 0 120px;
+        }
+
+        .footer-brand {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.25rem;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8125rem;
+            line-height: 1.7;
+        }
+
+        .footer-links-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .footer-title {
+            font-size: 0.875rem;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8125rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin: 0;
+        }
+
+        /* 平板适配 */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+                padding: 0 24px;
+            }
+
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+
+            .hero-title {
+                font-size: 2.75rem;
+            }
+
+            .hero-title span {
+                font-size: 2rem;
+            }
+
+            .hero-actions {
+                flex-direction: row;
+                justify-content: center;
+                padding: 0;
+            }
+
+            .hero-actions .btn {
+                width: auto;
+                padding: 16px 40px;
+            }
+
+            .services-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .service-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .service-icon {
+                margin: 0 auto;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .testimonial-card {
+                flex: 0 0 calc(50% - 8px);
+            }
+
+            .quick-contact {
+                max-width: 400px;
+                margin: 24px auto 0;
+            }
+        }
+
+        /* 桌面端 */
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 960px;
+            }
+
+            .main-navigation {
+                top: 0;
+                bottom: auto;
+                padding: 16px 0;
+                box-shadow: var(--shadow-soft);
+            }
+
+            .nav-container {
+                justify-content: center;
+                gap: 48px;
+            }
+
+            .nav-item {
+                flex-direction: row;
+                gap: 8px;
+                font-size: 0.9375rem;
+            }
+
+            .nav-item-icon {
+                font-size: 1.25rem;
+            }
+
+            .top-bar {
+                display: none;
+            }
+
+            body {
+                padding-bottom: 0;
+            }
+
+            .hero-section {
+                padding: 120px 0 80px;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .testimonial-card {
+                flex: 0 0 calc(33.333% - 8px);
+            }
+
+            .site-footer {
+                padding-bottom: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 顶部品牌栏 -->
+<div class="top-bar">
+    <a href="#" class="site-logo">洁净旺家</a>
+    <a href="tel:15392956537" class="top-bar-contact">📞 电话咨询</a>
+</div>
+
+<!-- 底部导航 -->
+<nav class="main-navigation">
+    <div class="nav-container">
+        <a href="#" class="nav-item active">
+            <span class="nav-item-icon">🏠</span>
+            <span>首页</span>
+        </a>
+        <a href="#services" class="nav-item">
+            <span class="nav-item-icon">📋</span>
+            <span>服务</span>
+        </a>
+        <a href="#about" class="nav-item">
+            <span class="nav-item-icon">👤</span>
+            <span>关于</span>
+        </a>
+        <a href="tel:15392956537" class="nav-item">
+            <span class="nav-item-icon">📞</span>
+            <span>电话</span>
+        </a>
+    </div>
+</nav>
+
+<!-- 英雄区域 -->
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <span class="hero-badge">武汉洪山区 · 专业家政服务</span>
+            <h1 class="hero-title">
+                用心服务
+                <span>温暖每一个家</span>
+            </h1>
+            <p class="hero-description">
+                洁净旺家家政，专注月嫂、照顾老人、钟点工、住家阿姨、日常保洁等服务。十年深耕武汉，用心服务每一个家庭。
+            </p>
+            <div class="hero-actions">
+                <a href="tel:15392956537" class="btn btn-primary">📞 立即电话咨询</a>
+                <a href="#services" class="btn btn-secondary">了解服务项目</a>
+            </div>
+            
+            <div class="hero-features">
+                <div class="hero-feature">
+                    <div class="hero-feature-icon">👩‍🍼</div>
+                    <h4>专业月嫂</h4>
+                    <p>持证上岗</p>
+                </div>
+                <div class="hero-feature">
+                    <div class="hero-feature-icon">👵</div>
+                    <h4>照顾老人</h4>
+                    <p>贴心陪护</p>
+                </div>
+                <div class="hero-feature">
+                    <div class="hero-feature-icon">🏠</div>
+                    <h4>住家阿姨</h4>
+                    <p>长期稳定</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 服务项目 -->
+<section class="section section-cream" id="services">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Our Services</span>
+            <h2 class="section-title">服务项目</h2>
+            <p class="section-desc">专业、贴心、可靠的家政服务</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">👩‍🍼</div>
+                <div class="service-content">
+                    <h3 class="service-title">月嫂服务</h3>
+                    <p class="service-desc">专业月嫂，照顾产妇和新生儿，科学坐月子，让妈妈和宝宝得到最好的照顾。</p>
+                    <span class="service-tag">热门推荐</span>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">👵</div>
+                <div class="service-content">
+                    <h3 class="service-title">照顾老人</h3>
+                    <p class="service-desc">专业护工，照顾老人日常起居，陪护就医，让老人安享晚年。</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">⏰</div>
+                <div class="service-content">
+                    <h3 class="service-title">钟点工</h3>
+                    <p class="service-desc">灵活预约，按小时计费，日常保洁、做饭、洗衣等，随叫随到。</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🏠</div>
+                <div class="service-content">
+                    <h3 class="service-title">住家阿姨</h3>
+                    <p class="service-desc">长期住家服务，负责日常家务、做饭、照顾孩子老人，稳定可靠。</p>
+                    <span class="service-tag">长期稳定</span>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">✨</div>
+                <div class="service-content">
+                    <h3 class="service-title">日常保洁</h3>
+                    <p class="service-desc">定期上门清洁，地面打扫、家具擦拭、厨卫清洁，让家始终保持整洁。</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🏗️</div>
+                <div class="service-content">
+                    <h3 class="service-title">新房开荒</h3>
+                    <p class="service-desc">新房装修后首次清洁，清除装修残留，让新家焕然一新。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 关于我们 -->
+<section class="section" id="about">
+    <div class="container">
+        <div class="about-section">
+            <div class="about-image">
+                👩
+                <span>章阿姨</span>
+            </div>
+            
+            <div class="about-content">
+                <span class="section-label">About Us</span>
+                <h2 class="section-title">一个有温度的家政品牌</h2>
+                <p class="about-text">
+                    武汉洁净旺家家政服务部，位于洪山区珞喻路，由章阿姨创办。我们相信，一个温馨的家，需要用心的呵护。
+                </p>
+                <p class="about-text">
+                    十年来，我们始终坚持"用心服务、真诚待人"的理念，把每一位客户的家当作自己的家来打理。
+                </p>
+                
+                <div class="about-quote">
+                    把每一个家都当作自己的家来打理，让服务成为一种温暖。
+                </div>
+                
+                <div class="founder-card">
+                    <div class="founder-avatar">章</div>
+                    <div class="founder-info">
+                        <h4>创始人 · 章阿姨</h4>
+                        <p>十年家政行业经验，服务超过3000个家庭</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 数据统计 -->
+<section class="stats-section">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">10<span>+</span></div>
+                <div class="stat-label">年服务经验</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">3000<span>+</span></div>
+                <div class="stat-label">服务家庭</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98<span>%</span></div>
+                <div class="stat-label">客户满意度</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24<span>h</span></div>
+                <div class="stat-label">快速响应</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 特色优势 -->
+<section class="section section-cream">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Why Choose Us</span>
+            <h2 class="section-title">为什么选择我们</h2>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">👩‍🏫</div>
+                <h4 class="feature-title">专业培训</h4>
+                <p class="feature-desc">持证上岗，技能娴熟</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h4 class="feature-title">安全保障</h4>
+                <p class="feature-desc">实名认证，背景调查</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⭐</div>
+                <h4 class="feature-title">品质保证</h4>
+                <p class="feature-desc">不满意可更换</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h4 class="feature-title">透明定价</h4>
+                <p class="feature-desc">明码标价，无隐形消费</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 客户评价 -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Testimonials</span>
+            <h2 class="section-title">客户真实评价</h2>
+        </div>
+        
+        <div class="testimonials-slider">
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">
+                    章阿姨介绍的月嫂非常专业，照顾我和宝宝都很细心，让我坐月子期间很安心。强烈推荐！
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">李</div>
+                    <div class="testimonial-info">
+                        <h5>李女士</h5>
+                        <span>月嫂服务客户</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">
+                    请了住家阿姨照顾老人，阿姨人很好，有耐心，老人很喜欢。服务态度也很好，值得信赖。
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">王</div>
+                    <div class="testimonial-info">
+                        <h5>王先生</h5>
+                        <span>住家阿姨客户</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">
+                    定期叫钟点工来打扫，每次都很干净，价格也实惠。章阿姨人很热情，服务很到位！
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">张</div>
+                    <div class="testimonial-info">
+                        <h5>张女士</h5>
+                        <span>钟点工客户</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 联系我们 -->
+<section class="section section-cream contact-section" id="contact">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Contact Us</span>
+            <h2 class="section-title">联系我们</h2>
+        </div>
+        
+        <div class="contact-card">
+            <h3>联系方式</h3>
+            
+            <div class="contact-item">
+                <div class="contact-item-icon">📞</div>
+                <div class="contact-item-content">
+                    <h5>联系电话</h5>
+                    <p><a href="tel:15392956537">153-9295-6537</a></p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-item-icon">📞</div>
+                <div class="contact-item-content">
+                    <h5>备用电话</h5>
+                    <p><a href="tel:15392966758">153-9296-6758</a></p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-item-icon">📍</div>
+                <div class="contact-item-content">
+                    <h5>公司地址</h5>
+                    <p>湖北省武汉市洪山区珞喻路446号-附1号</p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-item-icon">🕐</div>
+                <div class="contact-item-content">
+                    <h5>营业时间</h5>
+                    <p>周一至周日 8:00-20:00</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="quick-contact">
+            <a href="tel:15392956537" class="btn btn-accent">📞 电话咨询</a>
+            <a href="tel:15392966758" class="btn btn-phone">📞 备用电话</a>
+        </div>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-brand">
+            <h3>洁净旺家</h3>
+            <p>武汉洪山区专业家政服务品牌，十年深耕，用心服务每一个家庭。</p>
+        </div>
+        
+        <div class="footer-links-grid">
+            <div>
+                <h4 class="footer-title">快速链接</h4>
+                <ul class="footer-links">
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">服务项目</a></li>
+                    <li><a href="#">关于我们</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="footer-title">服务项目</h4>
+                <ul class="footer-links">
+                    <li><a href="#">月嫂服务</a></li>
+                    <li><a href="#">照顾老人</a></li>
+                    <li><a href="#">钟点工</a></li>
+                    <li><a href="#">住家阿姨</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 武汉洁净旺家家政服务部</p>
+            <p style="margin-top: 8px;">湖北省武汉市洪山区珞喻路446号-附1号</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
