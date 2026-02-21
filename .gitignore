@@ -5,6 +5,9 @@
 wp-config.php
 wp-config-sample.php
 
+# 内部文档（不上传）
+定制手册.md
+
 # 密钥和证书
 *.key
 *.pem
