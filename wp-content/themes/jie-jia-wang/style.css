@@ -731,7 +731,6 @@ img {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    padding: 4px;
     margin: 0 -16px;
     padding: 0 16px;
 }

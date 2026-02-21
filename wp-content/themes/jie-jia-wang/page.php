@@ -18,7 +18,7 @@ get_header();
 <?php endif; ?>
 
 <!-- 页面内容 -->
-<section class="section <?php echo is_front_page() ? 'section-white' : 'section-white'; ?>">
+<section class="section">
     <div class="container">
         <div class="entry-content">
             <?php
